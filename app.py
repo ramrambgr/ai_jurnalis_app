@@ -89,12 +89,13 @@ gemini_model = load_gemini_model()
 
 # ===================== [PROSES UTAMA SETELAH TOMBOL DIKLIK] =====================
 if generate_clicked and uploaded_file:
-    
+
     # === Gambar ===
+    image = Image.open(uploaded_file).convert("RGB")  # ← inilah yang sebelumnya hilang
     max_width = 800
     if image.width > max_width:
         ratio = max_width / float(image.width)
-        new_height = int(image.height * ratio)  # ← inilah yang harus ditambahkan
+        new_height = int(image.height * ratio)
         image = image.resize((max_width, new_height), Image.LANCZOS)
     st.image(image, caption="Gambar yang diunggah", use_column_width=False)
 
