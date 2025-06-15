@@ -95,7 +95,7 @@ if generate_clicked and uploaded_file:
     max_width = 800
     if image.width > max_width:
         ratio = max_width / float(image.width)
-        image = image.resize((max_width, int(image.height * ratio)), Image.ANTIALIAS)
+        image = image.resize((max_width, new_height), Image.LANCZOS)
     st.image(image, caption="Gambar yang diunggah", use_column_width=False)
 
     # === Metadata Gambar ===
