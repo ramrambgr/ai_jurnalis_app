@@ -177,8 +177,8 @@ if generate_clicked and uploaded_file:
 
     # ========== Gambar ===========
     if uploaded_file:
-    image = Image.open(uploaded_file).convert("RGB")
-    max_width = 800
+        image = Image.open(uploaded_file).convert("RGB")
+        max_width = 800
     if image.width > max_width:
         ratio = max_width / float(image.width)
         new_height = int(image.height * ratio)
