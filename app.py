@@ -184,5 +184,3 @@ if generate_clicked and uploaded_file:
         image = image.resize((max_width, new_height), Image.LANCZOS)
     st.image(image, caption="Gambar yang diunggah", use_container_width=True)
 
-
-
