@@ -182,5 +182,5 @@ if generate_clicked and uploaded_file:
     if image.width > max_width:
         ratio = max_width / float(image.width)
         new_height = int(image.height * ratio)
-    image = image.resize((max_width, new_height), Image.ANTIALIAS)
+    #image = image.resize((max_width, new_height), Image.ANTIALIAS)
 
