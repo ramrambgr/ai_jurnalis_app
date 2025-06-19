@@ -183,6 +183,4 @@ if generate_clicked and uploaded_file:
         ratio = max_width / float(image.width)
         new_height = int(image.height * ratio)
         image = image.resize((max_width, new_height), Image.ANTIALIAS)
-    
-    st.image(image, caption="Gambar yang diunggah", use_container_width=True)  
 
