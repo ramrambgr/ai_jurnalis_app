@@ -175,7 +175,7 @@ if generate_clicked and uploaded_file:
     for idx, title in enumerate(titles, start=1):
         st.text_input(f"📝 Judul {idx}:", value=title, key=f"judul_{idx}")
 
-
+    # ========== Gambar ===========
     if uploaded_file:
     image = Image.open(uploaded_file).convert("RGB")
     max_width = 800
