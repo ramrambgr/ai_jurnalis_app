@@ -175,12 +175,4 @@ if generate_clicked and uploaded_file:
     for idx, title in enumerate(titles, start=1):
         st.text_input(f"📝 Judul {idx}:", value=title, key=f"judul_{idx}")
 
-    # === Gambar ===
-    image = Image.open(uploaded_file).convert("RGB")
-    max_width = 800
-    if image.width > max_width:
-        ratio = max_width / float(image.width)
-        new_height = int(image.height * ratio)
-        image = image.resize((max_width, new_height), Image.LANCZOS)
-    st.image(image, caption="Gambar yang diunggah", use_container_width=True)
 
