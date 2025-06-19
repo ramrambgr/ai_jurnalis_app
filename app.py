@@ -177,7 +177,7 @@ if generate_clicked and uploaded_file:
 
     # === Gambar ===
     image = Image.open(uploaded_file).convert("RGB")
-    image = correct_image_orientation(image)  # ← Koreksi orientasi di sini
+    #image = correct_image_orientation(image)  # ← Koreksi orientasi di sini
     max_width = 800
     if image.width > max_width:
         ratio = max_width / float(image.width)
