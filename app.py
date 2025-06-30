@@ -120,7 +120,10 @@ gemini_model = load_gemini_model()
 if generate_clicked and uploaded_file:
 
     # === Gambar ===
-    image = Image.open(uploaded_file).convert("RGB")  # ← inilah yang sebelumnya hilang
+    from PIL import ImageOps
+
+    image = Image.open(uploaded_file)
+    image = ImageOps.exif_transpose(image).convert("RGB")  # ← inilah yang sebelumnya hilang
     max_width = 800
     if image.width > max_width:
         ratio = max_width / float(image.width)
