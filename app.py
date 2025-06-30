@@ -39,24 +39,53 @@ mode = mode_map[penulisan_mode]
 # ===================== [RAG SETTINGS] =====================
 st.header("⚙️ RAG Settings")
 use_rag = st.checkbox("Aktifkan RAG (ambil potongan referensi)")
+
 ref_text, raw_articles = None, []
+
 if use_rag:
-    rag_source = st.selectbox("Pilih Sumber Referensi:", ["File Upload (.txt/.pdf/.docx)", "Berita Viral Scraping"])
+    rag_source = st.selectbox(
+        "Pilih Sumber Referensi:",
+        ["File Upload (.txt/.pdf/.docx)", "Berita Viral Scraping"]
+    )
+
+    # === MODE FILE UPLOAD ===
     if rag_source == "File Upload (.txt/.pdf/.docx)":
         ref_file = st.file_uploader("📄 Upload Referensi (.txt/.pdf/.docx)", type=["txt", "pdf", "docx"])
         if ref_file:
             ref_text = read_reference_file(ref_file)
+
+    # === MODE SCRAPING BERITA ===
     else:
         if not os.path.exists("berita_viral.json"):
             raw_articles = get_all_viral_news()
         else:
             with open("berita_viral.json", "r", encoding="utf-8") as f:
                 raw_articles = json.load(f)
-        st.markdown("#### Daftar Berita Viral dari Scraping:")
-        for art in raw_articles:
-            st.markdown(f"- **{art['sumber']}**: [{art['judul']}]({art['url']})")
-            st.caption(art['ringkasan'])
-        ref_text = "\n".join(a['ringkasan'] for a in raw_articles)
+
+        # Dropdown untuk memilih sumber berita sesuai sketsa
+        sumber_terpilih = st.selectbox(
+            "📂 Berita hasil scraping",
+            ["Kompas", "Viva", "Detik", "Semua"]
+        )
+
+        # Filter artikel sesuai pilihan
+        if sumber_terpilih != "Semua":
+            filtered_articles = [a for a in raw_articles if a["sumber"].lower() == sumber_terpilih.lower()]
+        else:
+            filtered_articles = raw_articles
+
+        # Tampilkan daftar artikel dengan format ekspander
+        st.markdown(f"### 🗂️ Daftar Berita dari *{sumber_terpilih}* ({len(filtered_articles)} artikel)")
+
+        for art in filtered_articles:
+            with st.expander(f"📌 {art['judul']}", expanded=False):
+                st.markdown(f"- 🔗 [Buka Artikel]({art['url']})")
+                st.markdown(f"- 📰 *Sumber*: {art['sumber']}")
+                ringkasan = art['ringkasan'].strip() or "Tidak ada ringkasan."
+                st.markdown(f"- 📝 *Ringkasan*: {ringkasan}")
+
+        # Ringkasan untuk referensi artikel
+        ref_text = "\n".join([a['ringkasan'] for a in filtered_articles])
 
 # ===================== [STYLE HEADLINE PANDUAN] =====================
 use_style = st.checkbox("🔎 Gunakan berita viral untuk style saja")
