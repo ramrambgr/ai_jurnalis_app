@@ -184,6 +184,7 @@ if generate_clicked and uploaded_file:
         st.success("✅ Artikel selesai dibuat!")
         st.markdown("### Hasil Artikel:")
         st.markdown(final_article)
+        st.download_button("📥 Download Artikel", final_article, "artikel.txt")
 
     # Evaluasi Kecocokan Artikel dengan Deskripsi Gambar
     st.markdown("### 🎯 Skor Kecocokan dengan Gambar")
@@ -201,7 +202,6 @@ if generate_clicked and uploaded_file:
     else:
         st.info("ℹ️ Tidak dapat menghitung skor karena deskripsi atau artikel kosong.")
         
-        st.download_button("📥 Download Artikel", final_article, "artikel.txt")
 
     # === Agent 5: Fact Checker ===
     st.markdown("## ✅ Agent 4: Pemeriksa Fakta")
