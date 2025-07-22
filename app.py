@@ -184,6 +184,23 @@ if generate_clicked and uploaded_file:
         st.success("✅ Artikel selesai dibuat!")
         st.markdown("### Hasil Artikel:")
         st.markdown(final_article)
+
+    # Evaluasi Kecocokan Artikel dengan Deskripsi Gambar
+    st.markdown("### 🎯 Skor Kecocokan dengan Gambar")
+
+    if caption_text and final_article:
+        image_similarity = compute_similarity_score(final_article, caption_text)
+        image_percent = round(image_similarity * 100, 2)
+
+        if image_similarity > 0.8:
+            st.success(f"🟢 Artikel sangat sesuai dengan gambar ({image_percent}%)")
+        elif image_similarity > 0.5:
+            st.warning(f"🟡 Artikel cukup relevan dengan gambar ({image_percent}%)")
+        else:
+            st.error(f"🔴 Artikel kurang sesuai dengan isi gambar ({image_percent}%)")
+    else:
+        st.info("ℹ️ Tidak dapat menghitung skor karena deskripsi atau artikel kosong.")
+        
         st.download_button("📥 Download Artikel", final_article, "artikel.txt")
 
     # === Agent 5: Fact Checker ===
