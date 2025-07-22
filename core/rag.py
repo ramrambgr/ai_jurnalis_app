@@ -23,3 +23,14 @@ def retrieve_relevant_chunks(
     cos_sim = cosine_similarity(tfidf[0:1], tfidf[1:]).flatten()
     top_indices = cos_sim.argsort()[-top_k:][::-1]
     return [chunks[i] for i in top_indices]
+
+def compute_similarity_score(text_a: str, text_b: str) -> float:
+    """
+    Hitung skor kemiripan semantik antara dua teks menggunakan TF-IDF dan cosine similarity.
+    """
+    if not text_a or not text_b:
+        return 0.0
+    texts = [text_a, text_b]
+    vectorizer = TfidfVectorizer().fit_transform(texts)
+    sim_matrix = cosine_similarity(vectorizer[0:1], vectorizer[1:])
+    return float(sim_matrix[0][0])  # hasil antara 0 (tidak mirip) sampai 1 (identik)
