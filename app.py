@@ -199,12 +199,12 @@ if generate_clicked and uploaded_file:
         similarity = compute_similarity_score(final_article, ref_text)
         similarity_percent = round(similarity * 100, 2)
 
-    if similarity > 0.8:
-        st.success(f"✅ Artikel sangat akurat terhadap referensi ({similarity_percent}%)")
-    elif similarity > 0.5:
-        st.warning(f"⚠️ Artikel cukup akurat tapi perlu ditinjau ({similarity_percent}%)")
-    else:
-        st.error(f"❌ Artikel kurang sesuai dengan referensi ({similarity_percent}%)")
+        if similarity > 0.8:
+            st.success(f"✅ Artikel sangat akurat terhadap referensi ({similarity_percent}%)")
+        elif similarity > 0.5:
+            st.warning(f"⚠️ Artikel cukup akurat tapi perlu ditinjau ({similarity_percent}%)")
+        else:
+            st.error(f"❌ Artikel kurang sesuai dengan referensi ({similarity_percent}%)")
     else:
         st.info("ℹ️ Referensi tidak tersedia, skor kemiripan tidak dapat dihitung.")
 
