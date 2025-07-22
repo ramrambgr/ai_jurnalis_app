@@ -4,6 +4,7 @@ from PIL import Image
 import json
 import os
 
+from core.rag import compute_similarity_score
 from models import load_gemini_model
 from agents.image_interpreter import describe_image
 from agents.planner import agent_planner
@@ -190,6 +191,23 @@ if generate_clicked and uploaded_file:
     with st.spinner("Memeriksa fakta..."):
         fact_result = fact_check_article(gemini_model, final_article, ref_text, lang_code)
     st.text_area("📌 Temuan & Koreksi:", value=fact_result, height=200)
+
+    # Tambahkan Akurasi Semantik
+    st.markdown("### 📊 Skor Akurasi Semantik")
+
+    if ref_text:
+        similarity = compute_similarity_score(final_article, ref_text)
+        similarity_percent = round(similarity * 100, 2)
+
+    if similarity > 0.8:
+        st.success(f"✅ Artikel sangat akurat terhadap referensi ({similarity_percent}%)")
+    elif similarity > 0.5:
+        st.warning(f"⚠️ Artikel cukup akurat tapi perlu ditinjau ({similarity_percent}%)")
+    else:
+        st.error(f"❌ Artikel kurang sesuai dengan referensi ({similarity_percent}%)")
+    else:
+        st.info("ℹ️ Referensi tidak tersedia, skor kemiripan tidak dapat dihitung.")
+
 
     # === Agent 6: Headline Generator ===
     st.markdown("## 📰 Agent 5: Pembuat Judul")
