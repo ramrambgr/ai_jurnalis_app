@@ -201,8 +201,8 @@ if generate_clicked and uploaded_file:
         st.warning(f"🟡 Artikel cukup relevan dengan gambar ({image_percent}%)")
     else:
         st.error(f"🔴 Artikel kurang sesuai dengan isi gambar ({image_percent}%)")
-else:
-    st.info("ℹ️ Tidak dapat menghitung skor karena deskripsi atau artikel kosong.")
+    else:
+        st.info("ℹ️ Tidak dapat menghitung skor karena deskripsi atau artikel kosong.")
 
         
     # === Agent 5: Fact Checker ===
@@ -224,8 +224,8 @@ else:
         st.warning(f"⚠️ Artikel cukup akurat tapi perlu ditinjau ({similarity_percent}%)")
     else:
         st.error(f"❌ Artikel kurang sesuai dengan referensi ({similarity_percent}%)")
-else:
-    st.info("ℹ️ Referensi tidak tersedia, skor kemiripan tidak dapat dihitung.")
+    else:
+        st.info("ℹ️ Referensi tidak tersedia, skor kemiripan tidak dapat dihitung.")
 
 
     # === Agent 6: Headline Generator ===
