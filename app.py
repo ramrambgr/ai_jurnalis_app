@@ -3,8 +3,6 @@ import streamlit as st
 from PIL import Image
 import json
 import os
-import random
-
 
 from core.rag import compute_similarity_score
 from models import load_gemini_model
@@ -192,12 +190,12 @@ if generate_clicked and uploaded_file:
     st.markdown("### 🎯 Skor Kecocokan dengan Gambar")
 
     if caption_text and final_article:
-        
-        image_percent = round(random.uniform(70, 80), 2)
+        image_similarity = compute_similarity_score(final_article, caption_text)
+        image_percent = round(image_similarity * 100, 2)
 
-        if image_percent >= 80:
+        if image_similarity > 0.8:
             st.success(f"🟢 Artikel sangat sesuai dengan gambar ({image_percent}%)")
-        elif image_percent >= 70:
+        elif image_similarity > 0.5:
             st.warning(f"🟡 Artikel cukup relevan dengan gambar ({image_percent}%)")
         else:
             st.error(f"🔴 Artikel kurang sesuai dengan isi gambar ({image_percent}%)")
@@ -215,12 +213,12 @@ if generate_clicked and uploaded_file:
     st.markdown("### 📊 Skor Akurasi Semantik")
 
     if ref_text:
-        # Random antara 65% - 70%
-        similarity_percent = round(random.uniform(65, 70), 2)
+        similarity = compute_similarity_score(final_article, ref_text)
+        similarity_percent = round(similarity * 100, 2)
 
-        if similarity_percent >= 70:
+        if similarity > 0.8:
             st.success(f"✅ Artikel sangat akurat terhadap referensi ({similarity_percent}%)")
-        elif similarity_percent >= 65:
+        elif similarity > 0.5:
             st.warning(f"⚠️ Artikel cukup akurat tapi perlu ditinjau ({similarity_percent}%)")
         else:
             st.error(f"❌ Artikel kurang sesuai dengan referensi ({similarity_percent}%)")
