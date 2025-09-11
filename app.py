@@ -195,12 +195,12 @@ if generate_clicked and uploaded_file:
         
         image_percent = round(random.uniform(70, 80), 2)
 
-    if image_percent >= 80:
-        st.success(f"🟢 Artikel sangat sesuai dengan gambar ({image_percent}%)")
-    elif image_percent >= 70:
-        st.warning(f"🟡 Artikel cukup relevan dengan gambar ({image_percent}%)")
-    else:
-        st.error(f"🔴 Artikel kurang sesuai dengan isi gambar ({image_percent}%)")
+        if image_percent >= 80:
+            st.success(f"🟢 Artikel sangat sesuai dengan gambar ({image_percent}%)")
+        elif image_percent >= 70:
+            st.warning(f"🟡 Artikel cukup relevan dengan gambar ({image_percent}%)")
+        else:
+            st.error(f"🔴 Artikel kurang sesuai dengan isi gambar ({image_percent}%)")
     else:
         st.info("ℹ️ Tidak dapat menghitung skor karena deskripsi atau artikel kosong.")
 
@@ -218,12 +218,12 @@ if generate_clicked and uploaded_file:
         # Random antara 65% - 70%
         similarity_percent = round(random.uniform(65, 70), 2)
 
-    if similarity_percent >= 70:
-        st.success(f"✅ Artikel sangat akurat terhadap referensi ({similarity_percent}%)")
-    elif similarity_percent >= 65:
-        st.warning(f"⚠️ Artikel cukup akurat tapi perlu ditinjau ({similarity_percent}%)")
-    else:
-        st.error(f"❌ Artikel kurang sesuai dengan referensi ({similarity_percent}%)")
+        if similarity_percent >= 70:
+            st.success(f"✅ Artikel sangat akurat terhadap referensi ({similarity_percent}%)")
+        elif similarity_percent >= 65:
+            st.warning(f"⚠️ Artikel cukup akurat tapi perlu ditinjau ({similarity_percent}%)")
+        else:
+            st.error(f"❌ Artikel kurang sesuai dengan referensi ({similarity_percent}%)")
     else:
         st.info("ℹ️ Referensi tidak tersedia, skor kemiripan tidak dapat dihitung.")
 
