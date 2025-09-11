@@ -3,6 +3,8 @@ import streamlit as st
 from PIL import Image
 import json
 import os
+import random
+
 
 from core.rag import compute_similarity_score
 from models import load_gemini_model
