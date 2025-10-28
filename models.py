@@ -3,7 +3,7 @@ import google.generativeai as genai
 
 def load_gemini_model(api_key=None):
     """
-    Fungsi untuk memuat model Gemini 1.5 Flash dengan konfigurasi Streamlit Secrets.
+    Fungsi untuk memuat model Gemini 1.5 Flash (tanpa '-latest').
     Secara otomatis menggunakan API key dari .streamlit/secrets.toml.
     """
 
@@ -13,8 +13,8 @@ def load_gemini_model(api_key=None):
     # Konfigurasi Gemini API
     genai.configure(api_key=api_key)
 
-    # Gunakan nama model yang benar (versi terbaru)
-    model_name = "gemini-1.5-flash-latest"
+    # ✅ Gunakan model tanpa '-latest'
+    model_name = "gemini-1.5-flash"
 
     # Buat instance model
     model = genai.GenerativeModel(model_name)
